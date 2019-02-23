@@ -5,6 +5,7 @@ jobs:
       - image: circleci/ruby:2.6.1-node-browsers
         environment:
           TEST_DATABASE_URL: postgresql://sharing@localhost/sharing_test
+          PGHOST: 127.0.0.1
           RAILS_ENV: test
       - image: circleci/postgres:9.5-alpine-postgis
         environment:
