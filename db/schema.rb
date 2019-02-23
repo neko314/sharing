@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_23_122329) do
+ActiveRecord::Schema.define(version: 2019_02_23_122530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "charges", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "days_id"
+    t.bigint "tasks_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["days_id"], name: "index_charges_on_days_id"
+    t.index ["tasks_id"], name: "index_charges_on_tasks_id"
+    t.index ["user_id"], name: "index_charges_on_user_id"
+  end
 
   create_table "days", force: :cascade do |t|
     t.string "name"
@@ -48,6 +59,9 @@ ActiveRecord::Schema.define(version: 2019_02_23_122329) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "charges", "days", column: "days_id"
+  add_foreign_key "charges", "tasks", column: "tasks_id"
+  add_foreign_key "charges", "users"
   add_foreign_key "groups", "users"
   add_foreign_key "tasks", "days", column: "days_id"
   add_foreign_key "tasks", "users"
