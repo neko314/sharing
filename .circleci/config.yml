@@ -5,25 +5,18 @@ jobs:
       - image: circleci/ruby:2.6.1-node-browsers
         environment:
           TEST_DATABASE_URL: postgresql://sharing@localhost/sharing_test
+          PGHOST: 127.0.0.1
           RAILS_ENV: test
       - image: circleci/postgres:9.5-alpine-postgis
         environment:
-           POSTGRES_USER: sharing
-           POSTGRES_DB: sharing_test
+          POSTGRES_USER: circleci
+          POSTGRES_DB: sharing_test
         
     steps:
       - checkout
       - run: gem install bundler:2.0.1
       - run: bundle install
-      - run: sudo apt-get update
-      - run: sudo apt-get install postgresql-client-9.6
-      # - run: pg_ctl -D /usr/local/var/postgres start
-      - run: whoami
-      # - run: |
-      #     psql \
-      #      -d $TEST_DATABASE_URL \
-      #      -c "CREATE TABLE users (name char(25));"
-      # # rails db:create
-      # - run: rails db:migrate
+      - run: rails db:create
+      - run: rails db:migrate
       - run: bundle exec rspec
       - run: rubocop
