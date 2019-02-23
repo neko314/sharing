@@ -23,7 +23,7 @@ jobs:
       #     psql \
       #      -d $TEST_DATABASE_URL \
       #      -c "CREATE TABLE users (name char(25));"
-      # # rails db:create
-      # - run: rails db:migrate
+      - run: rails db:create
+      - run: rails db:migrate
       - run: bundle exec rspec
       - run: rubocop
