@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_23_121937) do
+ActiveRecord::Schema.define(version: 2019_02_23_122329) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,16 @@ ActiveRecord::Schema.define(version: 2019_02_23_121937) do
     t.index ["user_id"], name: "index_groups_on_user_id"
   end
 
+  create_table "tasks", force: :cascade do |t|
+    t.string "name"
+    t.bigint "user_id"
+    t.bigint "days_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["days_id"], name: "index_tasks_on_days_id"
+    t.index ["user_id"], name: "index_tasks_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -39,4 +49,6 @@ ActiveRecord::Schema.define(version: 2019_02_23_121937) do
   end
 
   add_foreign_key "groups", "users"
+  add_foreign_key "tasks", "days", column: "days_id"
+  add_foreign_key "tasks", "users"
 end
