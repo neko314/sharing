@@ -1,0 +1,7 @@
+h1 New Group
+
+= form_with(model: [:user, @group]) do |f|
+  = f.label :name
+  = f.text_field :name
+
+  = f.submit
