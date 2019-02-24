@@ -5,5 +5,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     sessions: "users/sessions"
   }
-  resources :users, only: [:show]
+  resources :users, only: [:show] do
+    resources :group
+  end
 end
