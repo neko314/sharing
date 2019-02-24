@@ -1,2 +1,9 @@
+h1 Profile
+
 p = @user.name
 P = @user.email
+
+h2 所属グループ
+- @user.groups.each do |g|
+  = g.name
+  br
