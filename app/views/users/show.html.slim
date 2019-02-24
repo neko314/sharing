@@ -4,6 +4,6 @@ p = @user.name
 P = @user.email
 
 h2 所属グループ
-- @user.groups.each do |g|
-  = g.name
+- @user.groups.each do |group|
+  = link_to "#{group.name}", group_path(group)
   br
