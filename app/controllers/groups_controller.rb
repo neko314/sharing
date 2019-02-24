@@ -2,11 +2,12 @@
 
 class GroupsController < ApplicationController
   def new
-    @group = current_user.groups.new
+    @group = Group.new
   end
 
   def create
-    @group = current_user.groups.new(group_params)
+    @group = Group.new(group_params)
+    @group.users << current_user
     if @group.save
       redirect_to user_path(current_user), notice: "New group created successfully"
     else
