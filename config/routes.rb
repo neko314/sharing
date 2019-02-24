@@ -6,5 +6,7 @@ Rails.application.routes.draw do
     sessions: "users/sessions"
   }
   resources :users, only: [:show]
-  resources :groups
+  resources :groups do
+    resources :tasks
+  end
 end

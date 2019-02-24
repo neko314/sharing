@@ -1,0 +1,8 @@
+h1 New Task
+/ h2 = @group.name
+
+= form_with(model: [:group, @task]) do |f|
+  = f.label :name
+  = f.text_field :name
+
+  = f.submit
