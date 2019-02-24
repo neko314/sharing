@@ -1,6 +1,6 @@
 h1 New Group
 
-= form_with(model: [:user, @group]) do |f|
+= form_with model: @group do |f|
   = f.label :name
   = f.text_field :name
 
