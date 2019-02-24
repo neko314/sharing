@@ -1,2 +1,9 @@
+h1 Profile
+
 p = @user.name
 P = @user.email
+
+h2 Groups
+- @user.groups.each do |group|
+  = link_to "#{group.name}", group_path(group)
+  br
