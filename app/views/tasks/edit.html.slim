@@ -1,2 +1,7 @@
-h1 Tasks#edit
-p Find me in app/views/tasks/edit.html.slim
+h1 Edit Task
+
+= form_with(model: [:group, @task]) do |f|
+  = f.label :name
+  = f.text_field :name
+
+  = f.submit
