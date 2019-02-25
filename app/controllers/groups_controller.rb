@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class GroupsController < ApplicationController
+  before_action :correct_user
+
   def new
     @group = Group.new
   end
@@ -26,5 +28,10 @@ class GroupsController < ApplicationController
   private
     def group_params
       params.require(:group).permit(:name)
+    end
+
+    def correct_user
+      group = Group.find(params[:id])
+      redirect_to user_path(current_user), notice: "You can't access" unless group.user_ids.include?(current_user.id)
     end
 end
