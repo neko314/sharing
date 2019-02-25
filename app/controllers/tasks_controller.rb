@@ -30,6 +30,12 @@ class TasksController < ApplicationController
   end
 
   def destroy
+    @task = Task.find(params[:id])
+    if @task.destroy
+      redirect_to group_path(@task.group), notice: "Destroy task"
+    else
+      redirect_to group_path(@task.group), notice: "Fail to destroy task"
+    end
   end
 
   private
