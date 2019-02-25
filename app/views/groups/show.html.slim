@@ -11,4 +11,6 @@ br
 - if @group.tasks.any?
   - @group.tasks.each do |task|
     = link_to "#{task.name}", edit_group_task_path(@group, task)
+    - task.days.each do |day|
+      = day.name
     br
