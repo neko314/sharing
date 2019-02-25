@@ -4,6 +4,8 @@ p = @user.name
 P = @user.email
 
 h2 Groups
+= link_to "New Group", new_group_path
+br
 - @user.groups.each do |group|
   = link_to "#{group.name}", group_path(group)
   br
