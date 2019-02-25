@@ -8,6 +8,7 @@ h2 Members
 h2 Tasks
 = link_to "New task", new_group_task_path(@group)
 br
-- @group.tasks.each do |task|
-  = link_to "#{task.name}", edit_group_task_path(@group, task)
-  br
+- if @group.tasks?
+  - @group.tasks.each do |task|
+    = link_to "#{task.name}", edit_group_task_path(@group, task)
+    br
