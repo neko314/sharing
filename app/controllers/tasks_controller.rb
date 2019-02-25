@@ -41,7 +41,7 @@ class TasksController < ApplicationController
 
   private
     def task_params
-      params.require(:task).permit(:name)
+      params.require(:task).permit(:name, days_id: [])
     end
 
     def correct_user
