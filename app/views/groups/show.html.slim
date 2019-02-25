@@ -7,5 +7,5 @@ h2 Members
 
 h2 Tasks
 - @group.tasks.each do |task|
-  = task.name 
+  = link_to "#{task.name}", edit_group_task_path(@group, task)
   br
