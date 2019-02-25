@@ -2,7 +2,7 @@
 
 class TasksController < ApplicationController
   before_action :current_user
-  
+
   def new
     @task = Task.new
   end

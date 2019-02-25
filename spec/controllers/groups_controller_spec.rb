@@ -20,7 +20,7 @@ RSpec.describe GroupsController, type: :controller do
       end
     end
   end
-  
+
   context "ログインユーザーがグループのメンバーの場合" do
     context "#show" do
       it "ページが表示されること" do
