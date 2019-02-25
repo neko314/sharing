@@ -2,7 +2,6 @@
 
 class TasksController < ApplicationController
   def new
-    @group = Group.find(params[:group_id])
     @task = Task.new
   end
 
@@ -10,7 +9,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     @task.group_id = params[:group_id]
     if @task.save
-      redirect_to group_path(params[:group_id]), notice: "New task created successfully"
+      redirect_to group_path(@task.group), notice: "New task created successfully"
     else
       render "new", notice: "Creating new task failed"
     end
