@@ -5,6 +5,11 @@ class AssignmentsController < ApplicationController
   end
 
   def create
+    assignments_params.each do |params|
+      assignment = Assignment.new(params)
+      assignment.save
+    end
+    redirect_to user_path(current_user), notice: "Save assignemets"
   end
 
   def show
