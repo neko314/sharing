@@ -1,2 +1,5 @@
-h1 Assignments#new
-p Find me in app/views/assignments/new.html.slim
+h1 New Assignment
+
+= form_with model: @assignment do |f|
+  = f.label :user_id
+  = f.collection_select :user_id, User.all, :id, :name
