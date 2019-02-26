@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   resources :groups do
     resources :tasks
   end
+  resources :assignments
 end
