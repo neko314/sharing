@@ -7,4 +7,9 @@ class AssignmentsController < ApplicationController
 
   def show
   end
+
+  private
+    def assignment_params
+      params.require(:assignment).permit(:user_id)
+    end
 end
