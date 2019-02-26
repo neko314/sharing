@@ -8,6 +8,6 @@ Rails.application.routes.draw do
   resources :users, only: [:show]
   resources :groups do
     resources :tasks
+    resources :assignments
   end
-  resources :assignments
 end
