@@ -11,11 +11,14 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     @task.group_id = params[:group_id]
-    @task.assignments.new(assignment_params)
+    @task.day_ids.each do |i|
+      assignment = @task.assignments.new(assignment_params)
+      assignment.day_id = i
+    end
     if @task.save
       redirect_to group_path(@task.group), notice: "New task created successfully"
     else
-      redirect_to group_path(@task.group), alert: "Creating new task failed"
+      render "new", alert: "Creating new task failed"
     end
   end
 
@@ -43,7 +46,7 @@ class TasksController < ApplicationController
 
   private
     def task_params
-      params.require(:task).permit(:name, day_ids: [], assignments_attributes: [:user_id])
+      params.require(:task).permit(:name, day_ids: [], assignments_attributes: [:task_id, :user_id])
     end
 
     def assignment_params
