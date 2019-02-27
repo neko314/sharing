@@ -4,4 +4,7 @@
 
   = f.collection_check_boxes :day_ids, Day.all, :id, :name
 
+  = f.fields_for :assignment, @task.assignments do |assignment_form|
+    = select_tag "assignment[user_id]", options_from_collection_for_select(User.all, :id, :name)
+
   = f.submit
