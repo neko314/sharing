@@ -4,7 +4,6 @@ class TasksController < ApplicationController
   before_action :current_user
 
   def new
-    console
     @task = Task.new
     @task.assignments.new
   end
