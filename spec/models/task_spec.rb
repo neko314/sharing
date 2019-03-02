@@ -11,7 +11,7 @@ RSpec.describe Task, type: :model  do
   context "曜日が選択されていない場合" do
     it "タスクが登録されないこと" do
     end
-    
+
     it "エラーメッセージが表示されること" do
     end
   end
