@@ -1,6 +1,11 @@
 h1 = @group.name
 h2 Members
 
+= form_with scope: :user, url: group_invitation_path(@group) do |f|
+  = f.email_field :email
+  = f.submit value="Invite"
+
+br
 - @group.users.each do |user|
   = user.name
   br

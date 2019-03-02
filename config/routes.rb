@@ -8,5 +8,6 @@ Rails.application.routes.draw do
   resources :users, only: [:show]
   resources :groups do
     resources :tasks
+    post "invitation", to: "invitations#create", as: :invitation
   end
 end
