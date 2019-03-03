@@ -8,7 +8,7 @@ class InvitationsController < ApplicationController
       @group.users << user
       redirect_to @group, notice: "Inivited #{user.name}"
     else
-      render group_path(@group), alert: "Couldn't find user"
+      redirect_to @group, alert: "Not fount user"
     end
   end
 
