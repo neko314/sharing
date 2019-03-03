@@ -8,6 +8,8 @@ h2 Members
 br
 - @group.users.each do |user|
   = user.name
+  - if user == current_user
+    = link_to "グループから外れる", group_exit_path(@group), data: { confirm: "Are you sure?"}
   br
 
 h2 Tasks
