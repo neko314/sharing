@@ -8,5 +8,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show]
   resources :groups do
     resources :tasks
+    post "invitation", to: "invitations#create", as: :invitation
+    get "exit", to: "exits#create", as: :exit
   end
 end
