@@ -11,7 +11,6 @@ class TasksController < ApplicationController
   def create
     group = Group.find(params[:group_id])
     @task = group.tasks.new(task_params)
-    binding.irb
     if @task.save
       redirect_to group_path(@task.group), notice: "New task created successfully"
     else
@@ -25,6 +24,7 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
+
     if @task.update(task_params)
       redirect_to group_path(@task.group), notice: "Update task successfully"
     else
@@ -42,7 +42,6 @@ class TasksController < ApplicationController
   end
 
   private
-    # { task: { assignments_at@tributes: [{ user_id: 1, day_id: 1 }, { user_id: 1, day_id: 2 }, ...] } }
     def task_params
       params.require(:task).permit(:name, assignments_attributes: [:id, :user_id, :day_id, :_destroy])
     end
