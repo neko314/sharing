@@ -9,12 +9,9 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
-    @task.group_id = params[:group_id]
-    @task.day_ids.each do |i|
-      assignment = @task.assignments.new(assignment_params)
-      assignment.day_id = i
-    end
+    group = Group.find(params[:group_id])
+    @task = group.tasks.new(task_params)
+    binding.irb
     if @task.save
       redirect_to group_path(@task.group), notice: "New task created successfully"
     else
@@ -45,12 +42,9 @@ class TasksController < ApplicationController
   end
 
   private
+    # { task: { assignments_at@tributes: [{ user_id: 1, day_id: 1 }, { user_id: 1, day_id: 2 }, ...] } }
     def task_params
-      params.require(:task).permit(:name, day_ids: [], assignments_attributes: [:id, :task_id, :user_id, :_destroy])
-    end
-
-    def assignment_params
-      params.require(:assignment).permit(:task_id, :user_id)
+      params.require(:task).permit(:name, assignments_attributes: [:id, :user_id, :day_id, :_destroy])
     end
 
     def correct_user
