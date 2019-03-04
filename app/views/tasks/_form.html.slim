@@ -2,7 +2,8 @@
   = f.label :name
   = f.text_field :name
 
-  = f.fields_for :assignments do |assignment_form|
-    = assignment_form.collection_select :day_id, Day.all, :id, :name
+  - Day.all.each do |day|
+    = day.name
+    = check_box_tag "task[assignments_attributes][][day_id]", day.id
 
   = f.submit

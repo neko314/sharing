@@ -1,3 +1,11 @@
 h1 New Task
 
-= render "form"
+= form_with(model: [:group, @task]) do |f|
+  = f.label :name
+  = f.text_field :name
+
+  - Day.all.each do |day|
+    = day.name
+    = check_box_tag "task[assignments_attributes][][day_id]", day.id
+
+  = f.submit

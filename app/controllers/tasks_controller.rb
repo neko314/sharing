@@ -5,7 +5,7 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
-    @task.assignments.new
+    Day.count.times { @task.assignments.new }
   end
 
   def create
