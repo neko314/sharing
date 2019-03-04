@@ -4,12 +4,12 @@ h1 Edit Task
   = f.label :name
   = f.text_field :name
 
-  - Day.all.each do |day|
+  - Day.all.each_with_index do |day, index|
     = day.name
-    - if @task.days.include?(day)
-      = check_box_tag "task[assignments_attributes][][day_id]", day.id, true
+    - if assignment = @task.assignments.find_by(day_id: day.id)
+      = hidden_field_tag "task[assignments_attributes][#{index}][id]", assignment.id
+      = check_box_tag "task[assignments_attributes][#{index}][day_id]", day.id, true
     - else
-      = check_box_tag "task[assignments_attributes][][day_id]", day.id
+      = check_box_tag "task[assignments_attributes][#{index}][day_id]", day.id
 
   = f.submit
-
