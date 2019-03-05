@@ -1,7 +1,0 @@
-= form_with(model: [:group, @task]) do |f|
-  = f.label :name
-  = f.text_field :name
-
-  = f.collection_check_boxes :day_ids, Day.all, :id, :name
-
-  = f.submit

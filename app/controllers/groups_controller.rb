@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class GroupsController < ApplicationController
-  before_action :correct_user
+  before_action :authenticate_user!
+  before_action :correct_user, only: %i(show index destroy)
 
   def new
     @group = Group.new
@@ -19,6 +20,7 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
+    @tasks = @group.tasks
   end
 
   def index

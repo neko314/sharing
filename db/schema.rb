@@ -10,33 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_25_151213) do
+ActiveRecord::Schema.define(version: 2019_03_02_144427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "charges", force: :cascade do |t|
+  create_table "assignments", force: :cascade do |t|
     t.bigint "user_id"
-    t.bigint "days_id"
-    t.bigint "tasks_id"
+    t.bigint "task_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["days_id"], name: "index_charges_on_days_id"
-    t.index ["tasks_id"], name: "index_charges_on_tasks_id"
-    t.index ["user_id"], name: "index_charges_on_user_id"
+    t.bigint "day_id", null: false
+    t.index ["day_id"], name: "index_assignments_on_day_id"
+    t.index ["task_id"], name: "index_assignments_on_task_id"
+    t.index ["user_id"], name: "index_assignments_on_user_id"
   end
 
   create_table "days", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "days_tasks", id: false, force: :cascade do |t|
-    t.bigint "day_id", null: false
-    t.bigint "task_id", null: false
-    t.index ["day_id"], name: "index_days_tasks_on_day_id"
-    t.index ["task_id"], name: "index_days_tasks_on_task_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -75,8 +66,8 @@ ActiveRecord::Schema.define(version: 2019_02_25_151213) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "charges", "days", column: "days_id"
-  add_foreign_key "charges", "tasks", column: "tasks_id"
-  add_foreign_key "charges", "users"
+  add_foreign_key "assignments", "days"
+  add_foreign_key "assignments", "tasks"
+  add_foreign_key "assignments", "users"
   add_foreign_key "tasks", "groups"
 end
