@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe InvitationsController, type: :controller do
+RSpec.describe Groups::InvitationsController, type: :controller do
   context "フォームに入力したメールアドレスを持つユーザーがいる場合" do
     it "グループのメンバーが増えていること" do
     end
