@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :groups do
     resources :tasks
     resources :assignments
-    post "invitation", to: "invitations#create", as: :invitation
-    get "exit", to: "exits#create", as: :exit
+    post "invitation", to: "groups/invitations#create", as: :invitation
+    get "exit", to: "groups/exits#create", as: :exit
   end
 end
