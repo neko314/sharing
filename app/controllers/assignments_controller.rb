@@ -1,20 +1,21 @@
 # frozen_string_literal: true
 
 class AssignmentsController < ApplicationController
-  def new
+  def edit
     @group = Group.find(params[:group_id])
-    @assignment = Assignment.new
+    @assignment = Assignment.find(params[:id])
+    # binding.pry
   end
 
-  def create
-    assignments_params.each do |params|
-      assignment = Assignment.new(params)
-      assignment.save
+  def update
+    @assignment = Assignment.find(params[:id])
+    
+    if @assignment.update(assignment_params)
+      binding.pry
+      redirect_to group_path(@assignment.task.group), notice: "Updated assignment successfully"
+    else
+      render "edit", alert: "Failed to update assignment"
     end
-    redirect_to user_path(current_user), notice: "Save assignemets"
-  end
-
-  def show
   end
 
   private
