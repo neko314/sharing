@@ -20,6 +20,7 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
+    @tasks = @group.tasks
   end
 
   def index
