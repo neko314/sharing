@@ -5,10 +5,9 @@ class ApplicationController < ActionController::Base
 
   private
     def after_sign_in_path_for(user)
-      user_path(current_user)
+      root_path
     end
 
-    # うまく動かない
     def after_sign_out_path_for(user)
       root_path
     end
