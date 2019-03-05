@@ -15,14 +15,9 @@ br
 h2 assignments
 
 table
-  th task
-  th Sunday
-  th Monday
-  th Tuesday
-  th Wednesday
-  th Thursday
-  th Friday
-  th Saturday
+  th Task
+  - Day.all.each do |day|
+    th = day.name
    
   - @tasks.each do |task|
     tr
