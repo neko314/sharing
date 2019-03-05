@@ -34,6 +34,6 @@ class GroupsController < ApplicationController
 
     def correct_user
       group = Group.find(params[:id])
-      redirect_to root_path, notice: "You can't access" unless group.user_ids.include?(current_user.id)
+      redirect_to current_user, notice: "You can't access" unless group.user_ids.include?(current_user.id)
     end
 end
