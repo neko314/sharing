@@ -1,24 +1,27 @@
-# README
+## What's Sharing
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Application to visualize how many housekeeping jobs you and your family have.
+You all will feel less burden with this app.
 
-Things you may want to cover:
+## Version
 
-* Ruby version
+Rails 5.2.2
 
-* System dependencies
+Ruby 2.6.1
 
-* Configuration
+## Database
 
-* Database creation
+```
+$ bin/rails db:migrate
+```
 
-* Database initialization
+Only first time you loanch this app, please run this
+```
+$ bin/rails db:seed
+```
 
-* How to run the test suite
+## test suite
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+$ bundle exec rspec
+```
