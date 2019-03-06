@@ -12,7 +12,7 @@ class GroupsController < ApplicationController
     @group = Group.new(group_params)
     @group.users << current_user
     if @group.save
-      redirect_to user_path(current_user), notice: "New group created successfully"
+      redirect_to @group, notice: "New group created successfully"
     else
       render "new", notice: "Creating new group failed"
     end
@@ -34,6 +34,6 @@ class GroupsController < ApplicationController
 
     def correct_user
       group = Group.find(params[:id])
-      redirect_to user_path(current_user), notice: "You can't access" unless group.user_ids.include?(current_user.id)
+      redirect_to current_user, notice: "You can't access" unless group.user_ids.include?(current_user.id)
     end
 end
