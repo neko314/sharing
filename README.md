@@ -25,7 +25,7 @@ and
 $ bin/rails server
 ```
 
-## test suite
+## Test suite
 
 ```
 $ bundle exec rspec
