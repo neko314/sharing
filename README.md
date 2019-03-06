@@ -9,15 +9,19 @@ Rails 5.2.2
 
 Ruby 2.6.1
 
-## Database
+## Setup
 
 ```
 $ bin/rails db:migrate
 ```
-
 Only first time you loanch this app, please run this
 ```
 $ bin/rails db:seed
+```
+and
+
+```
+$ bin/rails server
 ```
 
 ## test suite
