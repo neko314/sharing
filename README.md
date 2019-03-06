@@ -1,6 +1,7 @@
 ## What's Sharing
 
 Application to visualize how many housekeeping jobs you and your family have.
+
 You all will feel less burden with this app.
 
 ## Version
