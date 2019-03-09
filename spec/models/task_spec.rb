@@ -7,18 +7,14 @@ RSpec.describe Task, type: :model  do
     @group = FactoryBot.build(:group)
   end
 
-  context "名前が入力されている時" do
-    it "タスクが登録されること" do
-      task = @group.tasks.new(name: "taks")
-      expect(task).to be_valid
-    end
+  it "is valid with name" do
+    task = @group.tasks.new(name: "taks")
+    expect(task).to be_valid
   end
 
-  context "名前が入力されていない場合" do
-    it "タスクが登録されないこと" do
-      task = @group.tasks.new(name: "")
-      task.valid?
-      expect(task.errors[:name]).to include("can't be blank")
-    end
+  it "is invalid without name" do
+    task = @group.tasks.new(name: "")
+    task.valid?
+    expect(task.errors[:name]).to include("can't be blank")
   end
 end
