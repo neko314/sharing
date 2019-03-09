@@ -6,6 +6,6 @@ class Task < ApplicationRecord
   has_many :assignments, dependent: :destroy
   accepts_nested_attributes_for :assignments, allow_destroy: true, reject_if: :all_blank
   has_many :days, through: :assignments
-  
+
   validates :name, presence: true
 end
