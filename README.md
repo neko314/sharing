@@ -18,6 +18,7 @@ $ bin/rails db:migrate
 Only first time you loanch this app, please run this
 ```
 $ bin/rails db:seed
+$ bin/rails db:seed RAILS_ENV=test
 ```
 and
 
