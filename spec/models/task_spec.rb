@@ -4,9 +4,9 @@ require "rails_helper"
 
 RSpec.describe Task, type: :model  do
   before do
-    @user = FactoryBot.build(:user)
-    @group = @user.groups.new(id: 1, name: "test group")
+    @group = FactoryBot.build(:group)
   end
+
   context "名前が入力されている時" do
     it "タスクが登録されること" do
       task = @group.tasks.new(name: "taks")
