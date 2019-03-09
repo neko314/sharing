@@ -3,16 +3,22 @@
 require "rails_helper"
 
 RSpec.describe Task, type: :model  do
-  context "名前・曜日が入力されている時" do
+  before do
+    @user = FactoryBot.build(:user)
+    @group = @user.groups.new(id: 1, name: "test group")
+  end
+  context "名前が入力されている時" do
     it "タスクが登録されること" do
+      task = @group.tasks.new(name: "taks")
+      expect(task).to be_valid
     end
   end
 
-  context "曜日が選択されていない場合" do
+  context "名前が入力されていない場合" do
     it "タスクが登録されないこと" do
-    end
-
-    it "エラーメッセージが表示されること" do
+      task = @group.tasks.new(name: "")
+      task.valid?
+      expect(task.errors[:name]).to include("can't be blank")
     end
   end
 end
