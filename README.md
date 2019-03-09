@@ -15,7 +15,7 @@ Ruby 2.6.1
 ```
 $ bin/rails db:migrate
 ```
-Only first time you loanch this app, please run this
+Only first time you loanch this app, please run
 ```
 $ bin/rails db:seed
 $ bin/rails db:seed RAILS_ENV=test
