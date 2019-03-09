@@ -10,6 +10,7 @@ RSpec.describe User, type: :model  do
 
   it "is invalid without name" do
     user = FactoryBot.build(:user, name: nil)
-    expect(user).to be_invalid
+    user.valid?
+    expect(user.errors[:name]).to include("can't be blank")
   end
 end
