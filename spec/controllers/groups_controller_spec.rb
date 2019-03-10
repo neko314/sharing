@@ -54,7 +54,7 @@ RSpec.describe GroupsController, type: :controller do
 
   describe "#edit" do
     context "as a correct user" do
-      it "respondes succesfully" do
+      it "responds successfully" do
         sign_in @user
         get :edit, params: { id: @group.id }
         expect(response).to be_truthy
@@ -68,7 +68,7 @@ RSpec.describe GroupsController, type: :controller do
       end
     end
     context "as a guest" do
-      it "returns a 302 response" do
+      it "redirects to sign in page" do
         sign_in ""
         get :edit, params: { id: @group.id }
         expect(response).to redirect_to(new_user_session_path)
