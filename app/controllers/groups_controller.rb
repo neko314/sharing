@@ -2,7 +2,7 @@
 
 class GroupsController < ApplicationController
   before_action :authenticate_user!
-  before_action :correct_user, only: %i(show index destroy)
+  before_action :correct_user, except: [:new, :create]
 
   def new
     @group = Group.new
@@ -48,6 +48,7 @@ class GroupsController < ApplicationController
       render "show", notice: "Failed to delete a group"
     end
   end
+
   private
     def group_params
       params.require(:group).permit(:name)
@@ -55,6 +56,6 @@ class GroupsController < ApplicationController
 
     def correct_user
       group = Group.find(params[:id])
-      redirect_to current_user, notice: "You can't access" unless group.user_ids.include?(current_user.id)
+      redirect_to root_path, notice: "You can't access" unless group.user_ids.include?(current_user.id)
     end
 end
