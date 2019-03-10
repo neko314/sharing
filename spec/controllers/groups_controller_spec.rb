@@ -107,13 +107,13 @@ RSpec.describe GroupsController, type: :controller do
     context "as a correct user" do
       it "deletes a group" do
         sign_in @user
-        expect{ delete :destroy, params: { id: @group.id }}.to change(Group, :count).by(-1)
+        expect { delete :destroy, params: { id: @group.id } }.to change(Group, :count).by(-1)
       end
     end
     context "as a wrong user" do
       it "can't be delete group" do
         sign_in @other_user
-        expect{ delete :destroy, params: { id: @group.id }}.to_not change(Group, :count)
+        expect { delete :destroy, params: { id: @group.id } }.to_not change(Group, :count)
       end
       it "redirects to top page" do
         sign_in @other_user
@@ -124,7 +124,7 @@ RSpec.describe GroupsController, type: :controller do
     context "as a guest" do
       it "can't delete a group" do
         sign_in ""
-        expect{ delete :destroy, params: { id: @group.id }}.to_not change(Group, :count)
+        expect { delete :destroy, params: { id: @group.id } }.to_not change(Group, :count)
       end
       it "redirets to  sign in pgae" do
         sign_in ""
