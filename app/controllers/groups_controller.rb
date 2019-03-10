@@ -40,6 +40,14 @@ class GroupsController < ApplicationController
     @groups = current_user.groups
   end
 
+  def destroy
+    @group = Group.find(params[:id])
+    if @group.destroy
+      redirect_to root_path(current_user), notice: "Deleted a group"
+    else
+      render "show", notice: "Failed to delete a group"
+    end
+  end
   private
     def group_params
       params.require(:group).permit(:name)
