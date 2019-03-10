@@ -1,4 +1,4 @@
-h1 = @group.name
+h1 = link_to "#{@group.name}", edit_group_path(@group)
 = link_to "グループから外れる", group_exit_path(@group), data: { confirm: "Are you sure?" }
 
 h2 Members
