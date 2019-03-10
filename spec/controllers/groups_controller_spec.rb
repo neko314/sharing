@@ -3,49 +3,74 @@
 require "rails_helper"
 
 RSpec.describe GroupsController, type: :controller do
-  context "#create" do
-    context "名前が入力されている場合" do
-      it "新規登録できること" do
-      end
-      it "ログインユーザーが紐付いていること" do
-      end
-      it "ユーザーページにリダイレクトすること" do
+  fixtures :users, :groups
+
+  before do
+    @user = users(:user1)
+    @other_user = users(:user2)
+    @group = groups(:group1)
+    @group.users = [@user]
+  end
+
+  describe "#new" do
+    context "as an authenticated user" do
+      it "respondes succesfully" do
+        sign_in @user
+        get :new
+        expect(response).to be_truthy
       end
     end
-
-    context "名前が空欄の場合" do
-      it "登録できないこと" do
-      end
-      it "新規作成ページに戻ること" do
+    context "as a guest" do
+      it "redirects to sign in page" do
+        get :new
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
   end
 
-  context "ログインユーザーがグループのメンバーの場合" do
-    context "#show" do
-      it "ページが表示されること" do
-      end
+  describe "#create" do
+    context "as a correct user" do
     end
-    context "#edit" do
-      it "編集ページが表示されること" do
-      end
+    context "as a wrong user" do
     end
-    context "#update" do
-      it "情報が更新されること" do
-      end
-    end
-    context "#destroy" do
-      it "削除されること" do
-      end
+    context "as a guest" do
     end
   end
 
-  context "ログインユーザーがグループのメンバーでない場合" do
-    it "ページが表示されないこと" do
+  describe "#edit" do
+    context "as a correct user" do
+      it "respondes succesfully" do
+        sign_in @user
+        get :edit, params: { id: @group.id }
+        expect(response).to be_truthy
+      end
     end
-    it "メッセージが表示されること" do
+    context "as a wrong user" do
+      it "redirects to user page" do
+        sign_in @other_user
+        get :edit, params: { id: @group.id }
+        expect(response).to redirect_to(root_path)
+      end
     end
-    it "プロフィールページにリダイレクトされること" do
+    context "as a guest" do
+    end
+  end
+
+  describe "#update" do
+    context "as a correct user" do
+    end
+    context "as a wrong user" do
+    end
+    context "as a guest" do
+    end
+  end
+
+  describe "#destroy" do
+    context "as a correct user" do
+    end
+    context "as a wrong user" do
+    end
+    context "as a guest" do
     end
   end
 end
