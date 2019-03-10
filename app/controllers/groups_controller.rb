@@ -23,6 +23,19 @@ class GroupsController < ApplicationController
     @tasks = @group.tasks
   end
 
+  def edit
+    @group = Group.find(params[:id])
+  end
+
+  def update
+    @group = Group.find(params[:id])
+    if @group.update(group_params)
+      redirect_to @group, notice: "Updated group successfully"
+    else
+      render "edit", notice: "Failed to update group"
+    end
+  end
+
   def index
     @groups = current_user.groups
   end
