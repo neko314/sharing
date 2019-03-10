@@ -41,7 +41,13 @@ RSpec.describe GroupsController, type: :controller do
       it "can't add a new group" do
         sign_in ""
         group_params = FactoryBot.attributes_for(:group)
-        expect { post :create, params: { group: group_params } }.to change(Group, :count).by(0)
+        expect { post :create, params: { group: group_params } }.to_not change(Group, :count)
+      end
+      it "redirects to sigin in page" do
+        sign_in ""
+        group_params = FactoryBot.attributes_for(:group)
+        post :create, params: { group: group_params }
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
   end
