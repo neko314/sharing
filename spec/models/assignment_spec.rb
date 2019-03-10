@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe Assignment, type: :model  do
-  fixtures :tasks
+  fixtures :days, :tasks
 
   it "is valid with user_id task_id and day_id" do
     assignment = FactoryBot.build(:assignment, user_id: 1)
