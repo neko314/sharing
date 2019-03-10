@@ -4,7 +4,7 @@ module Groups
   class MembershipsController < ApplicationController
     def create
       @group = Group.find(params[:group_id])
-      user = User.find_by(membership_params)
+      user = User.find_by(email: params[:user][:email])
       if user.present?
         @group.users << user
         redirect_to @group, notice: "Inivited #{user.name}"
@@ -21,10 +21,5 @@ module Groups
         redirect_to @group, alert: "Failed to exit from group"
       end
     end
-
-    private
-      def membership_params
-        params.require(:user).permit(:email)
-      end
   end
 end
