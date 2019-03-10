@@ -4,11 +4,15 @@ require "rails_helper"
 
 RSpec.describe TasksController, type: :controller do
   before do
+    @user = users(:user1)
+    @group = groups(:group1)
+    @group.users = [user1]
   end
 
   describe "#new" do
     context "as a correct user" do
       it "responds successfully" do
+        sign_in @user
       end
     end
     context "as a wrong user" do
@@ -66,6 +70,7 @@ RSpec.describe TasksController, type: :controller do
       context "selection more day" do
         it "adds days to task" do
         end
+      end
       context "cancel a day" do
         it "remove day from task" do
         end
@@ -84,6 +89,7 @@ RSpec.describe TasksController, type: :controller do
       end
     end
   end
+
   describe "#destroy" do
     context "as a correct user" do
       it "deletes a task" do
