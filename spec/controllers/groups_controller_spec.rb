@@ -22,6 +22,7 @@ RSpec.describe GroupsController, type: :controller do
     end
     context "as a guest" do
       it "redirects to sign in page" do
+        sign_in ""
         get :new
         expect(response).to redirect_to(new_user_session_path)
       end
@@ -29,11 +30,20 @@ RSpec.describe GroupsController, type: :controller do
   end
 
   describe "#create" do
-    context "as a correct user" do
-    end
-    context "as a wrong user" do
+    context "as an authenticated user" do
+      it "adds a new group" do
+        sign_in @user
+        group_params = FactoryBot.attributes_for(:group)
+        expect{ post :create, params: { group: group_params }}.to change(Group, :count).by(1)
+      end
     end
     context "as a guest" do
+      it "returns a 302 response" do
+        sign_in ""
+        group_params = FactoryBot.attributes_for(:group)
+        post :create, params: { group: group_params }
+        expect(response).to have_http_status(302)
+      end
     end
   end
 
@@ -53,6 +63,11 @@ RSpec.describe GroupsController, type: :controller do
       end
     end
     context "as a guest" do
+      it "returns a 302 response" do
+        sign_in ""
+        get :edit, params: { id: @group.id }
+        expect(response).to have_http_status(302)
+      end
     end
   end
 
