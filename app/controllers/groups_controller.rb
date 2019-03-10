@@ -2,7 +2,7 @@
 
 class GroupsController < ApplicationController
   before_action :authenticate_user!
-  before_action :correct_user, only: %i(show index destroy)
+  before_action :correct_user, except: [:new, :create]
 
   def new
     @group = Group.new
@@ -23,8 +23,30 @@ class GroupsController < ApplicationController
     @tasks = @group.tasks
   end
 
+  def edit
+    @group = Group.find(params[:id])
+  end
+
+  def update
+    @group = Group.find(params[:id])
+    if @group.update(group_params)
+      redirect_to @group, notice: "Updated group successfully"
+    else
+      render "edit", notice: "Failed to update group"
+    end
+  end
+
   def index
     @groups = current_user.groups
+  end
+
+  def destroy
+    @group = Group.find(params[:id])
+    if @group.destroy
+      redirect_to root_path(current_user), notice: "Deleted a group"
+    else
+      render "show", notice: "Failed to delete a group"
+    end
   end
 
   private
@@ -34,6 +56,6 @@ class GroupsController < ApplicationController
 
     def correct_user
       group = Group.find(params[:id])
-      redirect_to current_user, notice: "You can't access" unless group.user_ids.include?(current_user.id)
+      redirect_to root_path, notice: "You can't access" unless group.user_ids.include?(current_user.id)
     end
 end

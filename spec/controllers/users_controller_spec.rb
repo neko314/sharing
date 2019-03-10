@@ -15,7 +15,7 @@ RSpec.describe UsersController, type: :controller do
       end
     end
 
-    context "user not signed in" do
+    context "as a guest" do
       it "redirects to sign in page" do
         get :show
         expect(response).to redirect_to(new_user_session_path)
