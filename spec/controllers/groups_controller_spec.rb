@@ -105,14 +105,31 @@ RSpec.describe GroupsController, type: :controller do
 
   describe "#destroy" do
     context "as a correct user" do
+      it "deletes a group" do
+        sign_in @user
+        expect{ delete :destroy, params: { id: @group.id }}.to change(Group, :count).by(-1)
+      end
     end
     context "as a wrong user" do
+      it "can't be delete group" do
+        sign_in @other_user
+        expect{ delete :destroy, params: { id: @group.id }}.to_not change(Group, :count)
+      end
+      it "redirects to top page" do
+        sign_in @other_user
+        delete :destroy, params: { id: @group.id }
+        expect(response).to redirect_to(root_path)
+      end
     end
     context "as a guest" do
-      it "returns a 302 response" do
+      it "can't delete a group" do
         sign_in ""
-        # get :edit, params: { id: @group.id }
-        expect(response).to have_http_status(302)
+        expect{ delete :destroy, params: { id: @group.id }}.to_not change(Group, :count)
+      end
+      it "redirets to  sign in pgae" do
+        sign_in ""
+        delete :destroy, params: { id: @group.id }
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
   end
