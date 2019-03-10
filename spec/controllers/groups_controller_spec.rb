@@ -34,7 +34,7 @@ RSpec.describe GroupsController, type: :controller do
       it "adds a new group" do
         sign_in @user
         group_params = FactoryBot.attributes_for(:group)
-        expect{ post :create, params: { group: group_params }}.to change(Group, :count).by(1)
+        expect { post :create, params: { group: group_params } }.to change(Group, :count).by(1)
       end
     end
     context "as a guest" do
@@ -56,7 +56,7 @@ RSpec.describe GroupsController, type: :controller do
       end
     end
     context "as a wrong user" do
-      it "redirects to user page" do
+      it "redirects to top page" do
         sign_in @other_user
         get :edit, params: { id: @group.id }
         expect(response).to redirect_to(root_path)
@@ -73,10 +73,28 @@ RSpec.describe GroupsController, type: :controller do
 
   describe "#update" do
     context "as a correct user" do
+      it "updates group" do
+        sign_in @user
+        group_params = FactoryBot.attributes_for(:group, name: "New name")
+        patch :update, params: { id: @group.id, group: group_params }
+        expect(@group.reload.name).to eq("New name")
+      end
     end
     context "as a wrong user" do
+      it "can't update group" do
+        sign_in @other_user
+        group_params = FactoryBot.attributes_for(:group, name: "New name")
+        patch :update, params: { id: @group.id, group: group_params }
+        expect(@group.reload.name).to eq("sample family")
+      end
     end
     context "as a guest" do
+      it "can't update group" do
+        sign_in ""
+        group_params = FactoryBot.attributes_for(:group, name: "New name")
+        patch :update, params: { id: @group.id, group: group_params }
+        expect(@group.reload.name).to eq("sample family")
+      end
     end
   end
 
@@ -86,6 +104,11 @@ RSpec.describe GroupsController, type: :controller do
     context "as a wrong user" do
     end
     context "as a guest" do
+      it "returns a 302 response" do
+        sign_in ""
+        # get :edit, params: { id: @group.id }
+        expect(response).to have_http_status(302)
+      end
     end
   end
 end
