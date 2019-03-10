@@ -38,11 +38,10 @@ RSpec.describe GroupsController, type: :controller do
       end
     end
     context "as a guest" do
-      it "returns a 302 response" do
+      it "can't add a new group" do
         sign_in ""
         group_params = FactoryBot.attributes_for(:group)
-        post :create, params: { group: group_params }
-        expect(response).to have_http_status(302)
+        expect { post :create, params: { group: group_params } }.to change(Group, :count).by(0)
       end
     end
   end
