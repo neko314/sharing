@@ -39,12 +39,18 @@ RSpec.describe TasksController, type: :controller do
   describe "#create" do
     context "as a correct user" do
       it "adds a new task" do
+        sign_in @user
+        task_params = FactoryBot.attributes_for(:task)
+        expect{ post :create, params: { group_id: @group.id, task: task_params }}.to change(@group.tasks, :count).by(1)
       end
       it "creates assingmnent of each day" do
       end
     end
     context "as a wrong user" do
       it "can't add a new task" do
+        sign_in @other_user
+        task_params = FactoryBot.attributes_for(:task)
+        expect{ post :create, params: { group_id: @group.id, task: task_params }}.to_not change(@group.tasks, :count)
       end
       it "redirects to top page" do
       end
