@@ -80,6 +80,7 @@ RSpec.describe GroupsController, type: :controller do
     context "as a correct user" do
       it "updates group" do
         sign_in @user
+        @group.name = "Old name"
         group_params = FactoryBot.attributes_for(:group, name: "New name")
         patch :update, params: { id: @group.id, group: group_params }
         expect(@group.reload.name).to eq("New name")
