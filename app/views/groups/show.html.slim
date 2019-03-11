@@ -21,7 +21,7 @@ table
 
   - @tasks.each do |task|
     tr
-      td = task.name
+      td = link_to "#{task.name}", edit_group_task_path(@group, task)
       - Day.all.each do |day|
         - if task.assignments.find_by(day_id: day.id)
           - assignment = task.assignments.find_by(day_id: day.id)
