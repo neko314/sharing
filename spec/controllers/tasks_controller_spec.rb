@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe TasksController, type: :controller do
-  fixtures :users, :groups, :days, :tasks
+  fixtures :users, :groups, :days, :tasks, :assignments
 
   before do
     @user = users(:user1)
@@ -46,8 +46,9 @@ RSpec.describe TasksController, type: :controller do
       end
       it "creates assingmnent" do
         sign_in @user
-        task_params = [FactoryBot.attributes_for(:task), assignments_attributes: [{ day_id: 1 }, { day_id: 2 }]]
-        expect { post :create, params: { group_id: @group.id, task: task_params } }.to change(@group.assignments, :count).by(2)
+        task_params = {"name"=>"task", "assignments_attributes"=>[{"day_id"=>"1"}, {"day_id"=>"2"}]}
+        assingments_params = [day_id: 1]
+        expect { post :create, params: { group_id: @group.id, task: task_params } }.to change(Assignment, :count).by(2)
       end
     end
     context "as a wrong user" do
@@ -109,16 +110,24 @@ RSpec.describe TasksController, type: :controller do
           sign_in @user
           task_params = FactoryBot.attributes_for(:task, name: "New name")
           patch :update, params: { id: @task.id, group_id: @group.id, task: task_params }
-          binding.pry
           expect(@task.reload.name).to eq("New name")
         end
       end
       context "selection more day" do
         it "adds days to task" do
+          sign_in @user
+          @task.assignments.destroy_all
+          @assignment = @task.assignments.create(day_id: 1)
+          task_params = {"name"=>"task", "assignments_attributes"=>{"0"=>{"id"=>"#{@assignment.id}", "_destroy"=>"0"}, "1"=>{"day_id"=>"2"}}}
+          expect{ patch :update, params: { id: @task.id, group_id: @group.id, task: task_params }}.to change(@task.assignments, :count).by(1)
         end
       end
       context "cancel a day" do
         it "remove day from task" do
+          sign_in @user
+          @assignment = @task.assignments.create(day_id: 1)
+          task_params = {"name"=>"task", "assignments_attributes"=>{"1"=>{"id"=>"#{@assignment.id}", "_destroy"=>"1"}}}
+          expect{patch :update, params: { id: @task.id, group_id: @group.id, task: task_params}}.to change(@task.assignments, :count).by(-1)
         end
       end
     end
