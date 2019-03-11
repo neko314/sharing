@@ -47,7 +47,6 @@ RSpec.describe TasksController, type: :controller do
       it "creates assingmnent" do
         sign_in @user
         task_params = { "name" => "task", "assignments_attributes" => [{ "day_id" => "1" }, { "day_id" => "2" }] }
-        assingments_params = [day_id: 1]
         expect { post :create, params: { group_id: @group.id, task: task_params } }.to change(Assignment, :count).by(2)
       end
     end
