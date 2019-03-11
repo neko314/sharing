@@ -44,7 +44,11 @@ RSpec.describe TasksController, type: :controller do
         task_params = FactoryBot.attributes_for(:task)
         expect{ post :create, params: { group_id: @group.id, task: task_params }}.to change(@group.tasks, :count).by(1)
       end
-      it "creates assingmnent of each day" do
+      it "creates assingmnent" do
+        sign_in @user
+        task_params = [FactoryBot.attributes_for(:task), assignments_attributes: [{day_id: 1}, {day_id: 2}]]
+        expect{ post :create, params: { group_id: @group.id, task: task_params }}.to change(@group.assignments, :count).by(2)
+
       end
     end
     context "as a wrong user" do
@@ -54,12 +58,23 @@ RSpec.describe TasksController, type: :controller do
         expect{ post :create, params: { group_id: @group.id, task: task_params }}.to_not change(@group.tasks, :count)
       end
       it "redirects to top page" do
+        sign_in @other_user
+        task_params = FactoryBot.attributes_for(:task)
+        post :create, params: { group_id: @group.id, task: task_params }
+        expect(response).to redirect_to(root_path)
       end
     end
     context "as a guest" do
       it "can't add a new task" do
+        sign_in ""
+        task_params = FactoryBot.attributes_for(:task)
+        expect{ post :create, params: { group_id: @group.id, task: task_params }}.to_not change(@group.tasks, :count)
       end
       it "redirects to sign in page" do
+        sign_in ""
+        task_params = FactoryBot.attributes_for(:task)
+        post :create, params: { group_id: @group.id, task: task_params }
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
   end
@@ -92,6 +107,11 @@ RSpec.describe TasksController, type: :controller do
     context "as a correct user" do
       context "to change name" do
         it "updates task name" do
+          sign_in @user
+          task_params = FactoryBot.attributes_for(:task, name: "New name")
+          patch :update, params: { id: @task.id, group_id: @group.id, task: task_params }
+          binding.pry
+          expect(@task.reload.name).to eq("New name")
         end
       end
       context "selection more day" do
@@ -105,14 +125,30 @@ RSpec.describe TasksController, type: :controller do
     end
     context "as a wrong user" do
       it "can't update day" do
+        sign_in @other_user
+        task_params = FactoryBot.attributes_for(:task, name: "New name")
+        patch :update, params: { id: @task.id, group_id: @group.id, task: task_params }
+        expect(@task.reload.name).to eq("cooking")
       end
       it "redirects to top page" do
+        sign_in @other_user
+        task_params = FactoryBot.attributes_for(:task, name: "New name")
+        patch :update, params: { id: @task.id, group_id: @group.id, task: task_params }
+        expect(response).to redirect_to(root_path)
       end
     end
     context "as a guest" do
       it "can't update day" do
+        sign_in ""
+        task_params = FactoryBot.attributes_for(:task, name: "New name")
+        patch :update, params: { id: @task.id, group_id: @group.id, task: task_params }
+        expect(@task.reload.name).to eq("cooking")
       end
       it "redirects to sign in page" do
+        sign_in ""
+        task_params = FactoryBot.attributes_for(:task, name: "New name")
+        patch :update, params: { id: @task.id, group_id: @group.id, task: task_params }
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
   end
@@ -120,20 +156,37 @@ RSpec.describe TasksController, type: :controller do
   describe "#destroy" do
     context "as a correct user" do
       it "deletes a task" do
+        sign_in @user
+        expect { delete :destroy, params: { id: @task.id, group_id: @group.id } }.to change(@group.tasks, :count).by(-1)
       end
       it "deletes assignments too" do
+        sign_in @user
+        @task.assignments.destroy_all
+        @task.assignments.create(day_id: 1)
+        @task.assignments.create(day_id: 2)
+        expect{ delete :destroy, params: { id: @task.id, group_id: @group.id } }.to change(Assignment, :count).by(-2)
       end
     end
     context "as a wrong user" do
       it "can't delete a task" do
+        sign_in @other_user
+        expect { delete :destroy, params: { id: @task.id, group_id: @group.id } }.to_not change(@group.tasks, :count)
       end
       it "redirects to top page" do
+        sign_in @other_user
+        delete :destroy, params: { id: @task.id, group_id: @group.id }
+        expect(response).to redirect_to(root_path)
       end
     end
     context "as a guest" do
       it "can't delete a task" do
+        sign_in ""
+        expect { delete :destroy, params: { id: @task.id, group_id: @group.id } }.to_not change(@group.tasks, :count)
       end
       it "redirects to sign in page" do
+        sign_in ""
+        delete :destroy, params: { id: @task.id, group_id: @group.id }
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
   end
