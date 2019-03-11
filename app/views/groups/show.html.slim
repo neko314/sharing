@@ -1,4 +1,4 @@
-h1 = @group.name
+h1 = link_to "#{@group.name}", edit_group_path(@group)
 = link_to "グループから外れる", group_exit_path(@group), data: { confirm: "Are you sure?" }
 
 h2 Members
@@ -21,7 +21,7 @@ table
 
   - @tasks.each do |task|
     tr
-      td = task.name
+      td = link_to "#{task.name}", edit_group_task_path(@group, task)
       - Day.all.each do |day|
         - if task.assignments.find_by(day_id: day.id)
           - assignment = task.assignments.find_by(day_id: day.id)
