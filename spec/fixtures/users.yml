@@ -9,3 +9,8 @@ user2:
   name: other_user
   email: other@example.com
   confirmed_at: 2019-01-01 12:00:00
+
+user3:
+  id: 3
+  name:  not_group_member
+  confirmed_at: 2019-01-01 12:00:00
