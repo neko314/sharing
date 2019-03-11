@@ -41,18 +41,43 @@ RSpec.describe AssignmentsController, type: :controller do
   describe "#update" do
     context "as acorrect user" do
       it "updates assignment" do
+        sign_in @user
+        @assignment.user_id = @user.id
+        assignment_params = FactoryBot.attributes_for(:assignment, user_id: @other_user.id)
+        patch :update, params: { id: @assignment.id, group_id: @group.id, assignment: assignment_params }
+        expect(@assignment.reload.user).to eq(@other_user)
       end
     end
     context "as awrong user" do
       it "can't update assignment" do
+        sign_in @non_member
+        @assignment.user_id = @user.id
+        assignment_params = FactoryBot.attributes_for(:assignment, user_id: @other_user.id)
+        patch :update, params: { id: @assignment.id, group_id: @group.id, assignment: assignment_params }
+        expect(@assignment.reload.user).to_not eq(@other_user)
       end
       it "redirects to top page" do
+        sign_in @non_member
+        @assignment.user_id = @user.id
+        assignment_params = FactoryBot.attributes_for(:assignment, user_id: @other_user.id)
+        patch :update, params: { id: @assignment.id, group_id: @group.id, assignment: assignment_params }
+        expect(response).to redirect_to(root_path)
       end
     end
     context "as a guest" do
       it "can't update assignment" do
+        sign_in ""
+        @assignment.user_id = @user.id
+        assignment_params = FactoryBot.attributes_for(:assignment, user_id: @other_user.id)
+        patch :update, params: { id: @assignment.id, group_id: @group.id, assignment: assignment_params }
+        expect(@assignment.reload.user).to_not eq(@other_user)
       end
       it "redirects to sign in page" do
+        sign_in ""
+        @assignment.user_id = @user.id
+        assignment_params = FactoryBot.attributes_for(:assignment, user_id: @other_user.id)
+        patch :update, params: { id: @assignment.id, group_id: @group.id, assignment: assignment_params }
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
   end
