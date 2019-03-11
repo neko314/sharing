@@ -45,7 +45,8 @@ RSpec.describe AssignmentsController, type: :controller do
         @assignment.user_id = @user.id
         assignment_params = FactoryBot.attributes_for(:assignment, user_id: @other_user.id)
         patch :update, params: { id: @assignment.id, group_id: @group.id, assignment: assignment_params }
-        expect(@assignment.reload.user).to eq(@other_user)
+        @assignment.reload
+        expect(@assignment.user).to eq(@other_user)
       end
     end
     context "as a wrong user" do
@@ -54,7 +55,8 @@ RSpec.describe AssignmentsController, type: :controller do
         @assignment.user_id = @user.id
         assignment_params = FactoryBot.attributes_for(:assignment, user_id: @other_user.id)
         patch :update, params: { id: @assignment.id, group_id: @group.id, assignment: assignment_params }
-        expect(@assignment.reload.user).to_not eq(@other_user)
+        @assignment.reload
+        expect(@assignment.user).to_not eq(@other_user)
       end
       it "redirects to top page" do
         sign_in @non_member
