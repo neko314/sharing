@@ -20,14 +20,15 @@ class TasksController < ApplicationController
   end
 
   def edit
+    @group = Group.find(params[:group_id])
     @task = Task.find(params[:id])
   end
 
   def update
+    @group = Group.find(params[:group_id])
     @task = Task.find(params[:id])
-
     if @task.update(task_params)
-      redirect_to group_path(@task.group), notice: "Update task successfully"
+      redirect_to group_path(@group), notice: "Update task successfully"
     else
       render "edit", notice: "Updating task failed"
     end
