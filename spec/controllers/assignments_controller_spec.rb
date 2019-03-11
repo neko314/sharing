@@ -22,7 +22,7 @@ RSpec.describe AssignmentsController, type: :controller do
         expect(response).to be_truthy
       end
     end
-    context "as awrong user" do
+    context "as a wrong user" do
       it "resirects to top page" do
         sign_in @non_member
         get :edit, params: { id: @assignment.id, group_id: @group.id }
@@ -39,7 +39,7 @@ RSpec.describe AssignmentsController, type: :controller do
   end
 
   describe "#update" do
-    context "as acorrect user" do
+    context "as a correct user" do
       it "updates assignment" do
         sign_in @user
         @assignment.user_id = @user.id
@@ -48,7 +48,7 @@ RSpec.describe AssignmentsController, type: :controller do
         expect(@assignment.reload.user).to eq(@other_user)
       end
     end
-    context "as awrong user" do
+    context "as a wrong user" do
       it "can't update assignment" do
         sign_in @non_member
         @assignment.user_id = @user.id
