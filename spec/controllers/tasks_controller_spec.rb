@@ -3,13 +3,14 @@
 require "rails_helper"
 
 RSpec.describe TasksController, type: :controller do
-  fixtures :users, :groups
+  fixtures :users, :groups, :days, :tasks
 
   before do
     @user = users(:user1)
     @other_user = users(:user2)
     @group = groups(:group1)
     @group.users = [@user]
+    @task = tasks(:task1)
   end
 
   describe "#new" do
@@ -66,14 +67,23 @@ RSpec.describe TasksController, type: :controller do
   describe "#edit" do
     context "as a correct user" do
       it "responds successfully" do
+        sign_in @user
+        get :edit, params: { group_id: @group.id, id: @task.id }
+        expect(response).to be_truthy
       end
     end
     context "as a wrong user" do
       it "redirects to top page" do
+        sign_in @other_user
+        get :edit, params: { group_id: @group.id, id: @task.id }
+        expect(response).to redirect_to(root_path)
       end
     end
     context "as a guest" do
       it "redirects to sign in page" do
+        sign_in ""
+        get :edit, params: { group_id: @group.id, id: @task.id }
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
   end
