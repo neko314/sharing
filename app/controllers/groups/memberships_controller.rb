@@ -4,6 +4,7 @@ module Groups
   class MembershipsController < ApplicationController
     def create
       @group = Group.find(params[:group_id])
+      binding.pry
       user = User.find_by(email: params[:user][:email])
       if user.present?
         @group.users << user
@@ -16,7 +17,7 @@ module Groups
     def destroy
       @group = Group.find(params[:group_id])
       if @group.users.delete(current_user)
-        redirect_to root_path, notice: "Exit from group"
+        redirect_to root_path, notice: "Exited from group"
       else
         redirect_to @group, alert: "Failed to exit from group"
       end

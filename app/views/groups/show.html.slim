@@ -1,11 +1,11 @@
 h1 = @group.name
-= link_to "グループから外れる", group_exit_path(@group), data: { confirm: "Are you sure?" }
+= link_to "Exit from group", group_membership_path(@group), method: :delete, data: { confirm: "Are you sure?" }
 
 h2 Members
 
-= form_with scope: :user, url: group_invitation_path(@group) do |f|
+= form_with scope: :user, url: group_memberships_path(@group) do |f|
   = f.email_field :email
-  = f.submit "Invite"
+  = f.submit "Add Member"
 
 br
 - @group.users.each do |user|
