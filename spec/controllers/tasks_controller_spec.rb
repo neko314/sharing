@@ -42,20 +42,19 @@ RSpec.describe TasksController, type: :controller do
       it "adds a new task" do
         sign_in @user
         task_params = FactoryBot.attributes_for(:task)
-        expect{ post :create, params: { group_id: @group.id, task: task_params }}.to change(@group.tasks, :count).by(1)
+        expect { post :create, params: { group_id: @group.id, task: task_params } }.to change(@group.tasks, :count).by(1)
       end
       it "creates assingmnent" do
         sign_in @user
-        task_params = [FactoryBot.attributes_for(:task), assignments_attributes: [{day_id: 1}, {day_id: 2}]]
-        expect{ post :create, params: { group_id: @group.id, task: task_params }}.to change(@group.assignments, :count).by(2)
-
+        task_params = [FactoryBot.attributes_for(:task), assignments_attributes: [{ day_id: 1 }, { day_id: 2 }]]
+        expect { post :create, params: { group_id: @group.id, task: task_params } }.to change(@group.assignments, :count).by(2)
       end
     end
     context "as a wrong user" do
       it "can't add a new task" do
         sign_in @other_user
         task_params = FactoryBot.attributes_for(:task)
-        expect{ post :create, params: { group_id: @group.id, task: task_params }}.to_not change(@group.tasks, :count)
+        expect { post :create, params: { group_id: @group.id, task: task_params } }.to_not change(@group.tasks, :count)
       end
       it "redirects to top page" do
         sign_in @other_user
@@ -68,7 +67,7 @@ RSpec.describe TasksController, type: :controller do
       it "can't add a new task" do
         sign_in ""
         task_params = FactoryBot.attributes_for(:task)
-        expect{ post :create, params: { group_id: @group.id, task: task_params }}.to_not change(@group.tasks, :count)
+        expect { post :create, params: { group_id: @group.id, task: task_params } }.to_not change(@group.tasks, :count)
       end
       it "redirects to sign in page" do
         sign_in ""
@@ -164,7 +163,7 @@ RSpec.describe TasksController, type: :controller do
         @task.assignments.destroy_all
         @task.assignments.create(day_id: 1)
         @task.assignments.create(day_id: 2)
-        expect{ delete :destroy, params: { id: @task.id, group_id: @group.id } }.to change(Assignment, :count).by(-2)
+        expect { delete :destroy, params: { id: @task.id, group_id: @group.id } }.to change(Assignment, :count).by(-2)
       end
     end
     context "as a wrong user" do
