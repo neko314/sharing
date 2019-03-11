@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
-  before_action :current_user
+  before_action :authenticate_user!
+  before_action :correct_user
 
   def new
     @task = Task.new
@@ -19,14 +20,15 @@ class TasksController < ApplicationController
   end
 
   def edit
+    @group = Group.find(params[:group_id])
     @task = Task.find(params[:id])
   end
 
   def update
+    @group = Group.find(params[:group_id])
     @task = Task.find(params[:id])
-
     if @task.update(task_params)
-      redirect_to group_path(@task.group), notice: "Update task successfully"
+      redirect_to group_path(@group), notice: "Update task successfully"
     else
       render "edit", notice: "Updating task failed"
     end
@@ -48,6 +50,6 @@ class TasksController < ApplicationController
 
     def correct_user
       group = Group.find(params[:group_id])
-      redirect_to current_user, notice: "You can't access" unless group.user_ids.include?(current_user.id)
+      redirect_to root_path, notice: "You can't access" unless group.user_ids.include?(current_user.id)
     end
 end
