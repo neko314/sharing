@@ -1,14 +1,19 @@
 h1 New Task
-.row
-  = form_with(model: [:group, @task]) do |f|
-    .col
-      = f.label :name
-      = f.text_field :name
 
-    .col
-      - Day.all.each do |day|
-        = check_box_tag "task[assignments_attributes][][day_id]", day.id
-        = day.name
-        br
-    .col
-      = f.submit
+.fieldset
+  = form_with(model: [:group, @task]) do |f|
+    .form-group.row
+      .col
+        = f.label :name
+        = f.text_field :name, placeholder: "Task name"
+
+    .form-group.row
+      .col
+        - Day.all.each do |day|
+          = check_box_tag "task[assignments_attributes][][day_id]", day.id
+          = day.name
+          br
+
+    .form-group.row
+      .col
+        = f.submit
