@@ -1,0 +1,11 @@
+user1:
+  id: 1
+  name: sample_user
+  email: sample@example.com
+  confirmed_at: 2019-01-01 12:00:00
+
+user2:
+  id: 2
+  name: other_user
+  email: other@example.com
+  confirmed_at: 2019-01-01 12:00:00
