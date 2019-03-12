@@ -36,10 +36,6 @@ class GroupsController < ApplicationController
     end
   end
 
-  def index
-    @groups = current_user.groups
-  end
-
   def destroy
     @group = Group.find(params[:id])
     if @group.destroy
