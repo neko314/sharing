@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   resources :groups do
     resources :tasks
     resources :assignments
-    post "invitation", to: "groups/invitations#create", as: :invitation
-    get "exit", to: "groups/exits#create", as: :exit
+    resources :memberships, only: [:create, :destroy], module: "groups"
   end
 end
