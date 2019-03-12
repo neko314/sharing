@@ -43,6 +43,7 @@ RSpec.describe AssignmentsController, type: :controller do
       it "updates assignment" do
         sign_in @user
         @assignment.user_id = @user.id
+        p @assignment.user
         assignment_params = FactoryBot.attributes_for(:assignment, user_id: @other_user.id)
         patch :update, params: { id: @assignment.id, group_id: @group.id, assignment: assignment_params }
         @assignment.reload
