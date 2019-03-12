@@ -4,7 +4,6 @@ module Groups
   class MembershipsController < ApplicationController
     def create
       @group = Group.find(params[:group_id])
-      binding.pry
       user = User.find_by(email: params[:user][:email])
       if user.present?
         @group.users << user
