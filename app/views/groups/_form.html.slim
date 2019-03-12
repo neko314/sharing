@@ -1,5 +1,8 @@
-= form_with model: @group do |f|
-  = f.label :name
-  = f.text_field :name, placeholder="name"
-
-  = f.submit
+.fieldset
+  .form-group.row
+    = form_with model: @group do |f|
+      .col
+        = f.label :name
+        = f.text_field :name, placeholder:"Group Name"
+      .col
+        = f.submit
