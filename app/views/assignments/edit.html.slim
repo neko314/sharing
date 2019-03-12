@@ -1,7 +1,9 @@
-h1 Assignment edit
+h1 Edit Assignment
 
-p = "#{@assignment.day.name}:#{@assignment.task.name}"
+h2 = "#{@assignment.day.name}:#{@assignment.task.name}"
 
-= form_with model: [:group, @assignment] do |form|
-  = form.collection_select :user_id, @group.users, :id, :name, include_blank: true
-  = form.submit
+.form-group.row
+  = form_with model: [:group, @assignment] do |form|
+    .col
+    = form.collection_select :user_id, @group.users, :id, :name, include_blank: true
+    = form.submit
