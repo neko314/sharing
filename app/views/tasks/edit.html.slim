@@ -1,19 +1,23 @@
 h1 Edit Task
-
-= form_with model: [:group, @task], url: group_task_path(@group), method: :put do |f|
-  = f.label :name
-  = f.text_field :name
-
-  - Day.all.each_with_index do |day, index|
-    = day.name
-    - if assignment = @task.assignments.find_by(day_id: day.id)
-      = hidden_field_tag "task[assignments_attributes][#{index}][id]", assignment.id
-      = hidden_field_tag "task[assignments_attributes][#{index}][_destroy]", 1
-      = check_box_tag "task[assignments_attributes][#{index}][_destroy]", 0, true
-    - else
-      = check_box_tag "task[assignments_attributes][#{index}][day_id]", day.id
-
-  = f.submit
-
 = link_to "Delete", group_task_path(@task.group),
   method: :delete, data: { confirm: "Are you sure?" }
+
+.row
+  = form_with model: [:group, @task], url: group_task_path(@group), method: :put do |f|
+    .col
+      = f.label :name
+      = f.text_field :name
+
+    .col
+      - Day.all.each_with_index do |day, index|
+        - if assignment = @task.assignments.find_by(day_id: day.id)
+          = hidden_field_tag "task[assignments_attributes][#{index}][id]", assignment.id
+          = hidden_field_tag "task[assignments_attributes][#{index}][_destroy]", 1
+          = check_box_tag "task[assignments_attributes][#{index}][_destroy]", 0, true
+        - else
+          = check_box_tag "task[assignments_attributes][#{index}][day_id]", day.id
+        = day.name
+        br
+    .col
+      = f.submit
+
