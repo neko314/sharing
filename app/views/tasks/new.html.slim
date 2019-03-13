@@ -2,18 +2,15 @@ h1 New Task
 
 .fieldset
   = form_with(model: [:group, @task]) do |f|
-    .form-group.row
-      .col
-        = f.label :name
-        = f.text_field :name, placeholder: "Task name"
+    .form-group.form-inline
+      = f.text_field :name, placeholder: "Task name", class: "form-control"
 
-    .form-group.row
-      .col
+    .form-group
+      .form-check
         - Day.all.each do |day|
-          = check_box_tag "task[assignments_attributes][][day_id]", day.id
-          = day.name
-          br
+          = check_box_tag "task[assignments_attributes][][day_id]", day.id, false, class: "form-check-input"
+          .form-check-label
+            = day.name
 
-    .form-group.row
-      .col
-        = f.submit
+    .form-group
+      = f.submit class: "btn btn-outline-info btn-sm"
