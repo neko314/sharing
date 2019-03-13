@@ -1,7 +1,9 @@
-h1 Assignment edit
+.d-flex.flex-column.align-items-center
+  h2 = "#{@assignment.day.name}:#{@assignment.task.name}"
 
-p = "#{@assignment.day.name}:#{@assignment.task.name}"
-
-= form_with model: [:group, @assignment] do |form|
-  = form.collection_select :user_id, @group.users, :id, :name, include_blank: true
-  = form.submit
+  .form-group.row
+    = form_with model: [:group, @assignment] do |form|
+      = form.collection_select :user_id, @group.users, :id, :name, { include_blank: true },
+        { class: "form-control form-control-sm" }
+      br
+      = form.submit class: "btn btn-outline-info btn-sm"

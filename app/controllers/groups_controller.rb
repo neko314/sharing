@@ -32,12 +32,8 @@ class GroupsController < ApplicationController
     if @group.update(group_params)
       redirect_to @group, notice: "Updated group successfully"
     else
-      render "edit", notice: "Failed to update group"
+      render "edit", alert: "Failed to update group"
     end
-  end
-
-  def index
-    @groups = current_user.groups
   end
 
   def destroy
@@ -45,7 +41,7 @@ class GroupsController < ApplicationController
     if @group.destroy
       redirect_to root_path(current_user), notice: "Deleted a group"
     else
-      render "show", notice: "Failed to delete a group"
+      render "show", alert: "Failed to delete a group"
     end
   end
 
@@ -56,6 +52,6 @@ class GroupsController < ApplicationController
 
     def correct_user
       group = Group.find(params[:id])
-      redirect_to root_path, notice: "You can't access" unless group.user_ids.include?(current_user.id)
+      redirect_to root_path, alert: "You can't access" unless group.user_ids.include?(current_user.id)
     end
 end

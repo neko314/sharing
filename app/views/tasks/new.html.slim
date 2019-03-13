@@ -1,11 +1,19 @@
-h1 New Task
+.row.justify-content-center
+  .col-6
+    h1 New Task
+    .fieldset
+      = form_with(model: [:group, @task]) do |f|
+        .form-group
+          = f.text_field :name, placeholder: "Task name", class: "form-control"
 
-= form_with(model: [:group, @task]) do |f|
-  = f.label :name
-  = f.text_field :name
+        .form-group
+          .form-check
+            - Day.all.each do |day|
+              = check_box_tag "task[assignments_attributes][][day_id]", day.id, false,
+                class: "form-check-input"
+              .form-check-label
+                = day.name
 
-  - Day.all.each do |day|
-    = day.name
-    = check_box_tag "task[assignments_attributes][][day_id]", day.id
-
-  = f.submit
+        .form-group.d-flex.justify-content-center
+          = f.submit class: "btn btn-outline-info btn-sm"
+    = link_to "Back", group_path(@group)

@@ -1,5 +1,9 @@
-h1 Edit Group
+.row.justify-content-center
+  .col-6
+    h1 Edit Group
 
-= render "form"
+    = render "form"
 
-= link_to "Delete group", group_path(@group), method: :delete
+    = link_to "Delete group", group_path(@group), method: :delete
+    br
+    = link_to "Back", root_path

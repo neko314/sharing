@@ -1,8 +1,13 @@
-- if user_signed_in?
-  = link_to "#{current_user.name}", root_path
-  span = "  "
-  = link_to "Log out", destroy_user_session_path, method: :delete
-- else
-  = link_to "Log in", new_user_session_path
-  | or
-  = link_to "Sign up", new_user_registration_path
+.page-header.p-3.mb-2.bg-info.text-white.flex
+  ul.list-unstyled
+    - if user_signed_in?
+      .d-flex.flex-row.bd-highlight.justify-content-end
+        li.list-inline-item = link_to "#{current_user.name}", root_path, class: "text-white"
+        li.list-inline-item = link_to "Log out", destroy_user_session_path,
+          method: :delete, class: "text-white"
+    - else
+      .d-flex.flex-row.bd-highlight.justify-content-end
+        - if controller_name != "sessions"
+          li.list-inline-item = link_to "Log in", new_user_session_path, class: "text-white"
+        - else
+          li.list-inline-item = link_to "Sign up", new_user_registration_path, class: "text-white"

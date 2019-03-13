@@ -24,7 +24,8 @@ class AssignmentsController < ApplicationController
     end
 
     def correct_user
-      group = Group.find(params[:group_id])
-      redirect_to root_path, notice: "You can't access" unless group.user_ids.include?(current_user.id)
+      assignment = Assignment.find(params[:id])
+      group = assignment.task.group
+      redirect_to root_path, alert: "You can't access" unless group.user_ids.include?(current_user.id)
     end
 end
