@@ -2,13 +2,15 @@
   .col-6
     h2
       | Resend confirmation instructions
-    = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+    = form_for(resource, as: resource_name, url: confirmation_path(resource_name),
+      html: { method: :post }) do |f|
       = render "devise/shared/error_messages", resource: resource
       .field
         = f.label :email
         br
         = f.email_field :email, autofocus: true, autocomplete: "email",
-          value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class: "form-control"
+          value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
+            class: "form-control"
         br
       .d-flex.justify-content-center
         .actions
