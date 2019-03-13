@@ -19,10 +19,10 @@ html
 
   body
     = render "/shared/header"
-    .container
-      p.notice
+    .container-fluid
+      p.notice.text-success
         = notice
-      p.alert
+      p.alert.text-danger
         = alert
       = yield
     script crossorigin="anonymous" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 

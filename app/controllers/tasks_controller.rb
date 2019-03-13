@@ -30,7 +30,7 @@ class TasksController < ApplicationController
     if @task.update(task_params)
       redirect_to group_path(@group), notice: "Update task successfully"
     else
-      render "edit", notice: "Updating task failed"
+      render "edit", alert: "Updating task failed"
     end
   end
 
@@ -39,7 +39,7 @@ class TasksController < ApplicationController
     if @task.destroy
       redirect_to group_path(@task.group), notice: "Destroy task"
     else
-      redirect_to group_path(@task.group), notice: "Fail to destroy task"
+      redirect_to group_path(@task.group), alert: "Fail to destroy task"
     end
   end
 
@@ -50,6 +50,6 @@ class TasksController < ApplicationController
 
     def correct_user
       group = Group.find(params[:group_id])
-      redirect_to root_path, notice: "You can't access" unless group.user_ids.include?(current_user.id)
+      redirect_to root_path, alert: "You can't access" unless group.user_ids.include?(current_user.id)
     end
 end
