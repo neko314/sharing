@@ -10,7 +10,6 @@ class AssignmentsController < ApplicationController
   end
 
   def update
-    @group_id = Group.find(params[:group_id])
     @assignment = Assignment.find(params[:id])
     if @assignment.update(assignment_params)
       redirect_to group_path(@assignment.task.group), notice: "Updated assignment successfully"
