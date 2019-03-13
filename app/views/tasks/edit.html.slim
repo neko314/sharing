@@ -1,25 +1,27 @@
-h1 Edit Task
-= link_to "Delete", group_task_path(@task.group),
-  method: :delete, data: { confirm: "Are you sure?" }
+.row.justify-content-center
+  .col-6
+    h1 Edit Task
+    = link_to "Delete", group_task_path(@task.group),
+      method: :delete, data: { confirm: "Are you sure?" }
 
+    .fieldset
+      = form_with model: [:group, @task], url: group_task_path(@group), method: :put do |f|
+        .form-group
+          = f.text_field :name, class: "form-control"
 
-.fieldset
-  = form_with model: [:group, @task], url: group_task_path(@group), method: :put do |f|
-    .form-group.form-inline
-      = f.text_field :name, class: "form-control"
+        .form-group
+          .form-check
+            - Day.all.each_with_index do |day, index|
+              - if assignment = @task.assignments.find_by(day_id: day.id)
+                = hidden_field_tag "task[assignments_attributes][#{index}][id]", assignment.id 
+                = hidden_field_tag "task[assignments_attributes][#{index}][_destroy]", 1
+                = check_box_tag "task[assignments_attributes][#{index}][_destroy]", 0, true, class: "form-check-input"
+              - else
+                = check_box_tag "task[assignments_attributes][#{index}][day_id]", day.id, false, class: "form-check-input"
+              .form-check-label = day.name
 
-    .form-group
-      .form-check
-        - Day.all.each_with_index do |day, index|
-          - if assignment = @task.assignments.find_by(day_id: day.id)
-            = hidden_field_tag "task[assignments_attributes][#{index}][id]", assignment.id 
-            = hidden_field_tag "task[assignments_attributes][#{index}][_destroy]", 1
-            = check_box_tag "task[assignments_attributes][#{index}][_destroy]", 0, true, class: "form-check-input"
-          - else
-            = check_box_tag "task[assignments_attributes][#{index}][day_id]", day.id
-          .form-check-label
-            = day.name
-
-    .form-group
-      = f.submit class: "btn btn-outline-info btn-sm"
+        .form-group.justify-content-center
+          = f.submit class: "btn btn-outline-info btn-sm"
+          
+    = link_to "Back", group_path(@group)
 
