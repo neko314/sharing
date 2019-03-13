@@ -1,40 +1,41 @@
-h1 = link_to "#{@group.name}", edit_group_path(@group)
+.justify-content-center
+  h1 = link_to "#{@group.name}", edit_group_path(@group), class: "text-dark"
 
-= link_to "Exit from group", group_membership_path(@group),
-  method: :delete, data: { confirm: "Are you sure?" }
+  = link_to "Exit from group", group_membership_path(@group),
+    method: :delete, data: { confirm: "Are you sure?" }
 
-.row
-  .col-2
-    h2 Members
-    ul.list-unstyled
-      - @group.users.each do |user|
-        li= user.name
-    .form-group
-      = form_with scope: :user, url: group_memberships_path(@group) do |f|
-        = f.email_field :email, placeholder:"Enter email", class: "form-control form-control-sm"
-        br
-        = f.submit "Add Member", class:"btn btn-outline-info btn-sm"
-  
-  .col
-    = link_to "New task", new_group_task_path(@group)
+  .row
+    .col-2
+      h2 Members
+      ul.list-unstyled
+        - @group.users.each do |user|
+          li= user.name
+      .form-group
+        = form_with scope: :user, url: group_memberships_path(@group) do |f|
+          = f.email_field :email, placeholder:"Enter email", class: "form-control form-control-sm"
+          br
+          = f.submit "Add Member", class:"btn btn-outline-info btn-sm"
+    
+    .col
+      = link_to "New task", new_group_task_path(@group)
 
-    .table-responsive
-      table.table.table-bordered.table-hover
-        th
-        - Day.all.each do |day|
-          th = day.name
+      .table-responsive
+        table.table.table-bordered.table-hover
+          th
+          - Day.all.each do |day|
+            th = day.name
 
-        - @tasks.each do |task|
-          tr
-            th = link_to "#{task.name}", edit_group_task_path(@group, task)
-            - Day.all.each do |day|
-              - if task.assignments.find_by(day_id: day.id)
-                - assignment = task.assignments.find_by(day_id: day.id)
-                - if assignment.user
-                  td = link_to "#{assignment.user.name}",
-                    edit_group_assignment_path(@group, assignment)
+          - @tasks.each do |task|
+            tr
+              th = link_to "#{task.name}", edit_group_task_path(@group, task)
+              - Day.all.each do |day|
+                - if task.assignments.find_by(day_id: day.id)
+                  - assignment = task.assignments.find_by(day_id: day.id)
+                  - if assignment.user
+                    td = link_to "#{assignment.user.name}",
+                      edit_group_assignment_path(@group, assignment)
+                  - else
+                    td = link_to "No one",
+                      edit_group_assignment_path(@group, assignment)
                 - else
-                  td = link_to "No one",
-                    edit_group_assignment_path(@group, assignment)
-              - else
-                td
+                  td
