@@ -6,8 +6,7 @@ h1 Edit Task
 .fieldset
   = form_with model: [:group, @task], url: group_task_path(@group), method: :put do |f|
     .form-group.form-inline
-      = f.label :name
-      = f.text_field :name
+      = f.text_field :name, class: "form-control"
 
     .form-group
       .form-check
@@ -21,7 +20,6 @@ h1 Edit Task
           .form-check-label
             = day.name
 
-    .form-group.row
-      .col
-        = f.submit
+    .form-group
+      = f.submit class: "btn btn-outline-info btn-sm"
 
