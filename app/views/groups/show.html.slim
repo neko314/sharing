@@ -4,7 +4,7 @@ h1 = link_to "#{@group.name}", edit_group_path(@group)
   method: :delete, data: { confirm: "Are you sure?" }
 
 .row
-  .col
+  .col-2
     h2 Members
     ul 
       - @group.users.each do |user|
