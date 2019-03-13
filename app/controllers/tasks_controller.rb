@@ -5,6 +5,7 @@ class TasksController < ApplicationController
   before_action :correct_user
 
   def new
+    @group = Group.find(params[:group_id])
     @task = Task.new
     Day.count.times { @task.assignments.new }
   end
