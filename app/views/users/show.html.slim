@@ -1,13 +1,14 @@
-.row
-  .col-4
-    h2 Profile
-    p = current_user.name
-    p = current_user.email
+.row.justify-content-center
+  .col-6.row
+    .col
+      p = current_user.name
+      p = current_user.email
+      = link_to "Edit profile", edit_user_registration_path(current_user), class: "text-primary"
 
-  .col
-    h2 Groups
-    = link_to "New Group", new_group_path
-    br
-    - current_user.groups.each do |group|
-      = link_to "#{group.name}", group_path(group)
+    .col
+      h2 Groups
+      = link_to "New Group", new_group_path
       br
+      - current_user.groups.each do |group|
+        = link_to "#{group.name}", group_path(group), class: "text-dark"
+        br
