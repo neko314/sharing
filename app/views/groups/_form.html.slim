@@ -1,8 +1,8 @@
 .fieldset
-  .form-group.row
+  .form-group
     = form_with model: @group do |f|
-      .col
-        = f.label :name
-        = f.text_field :name, placeholder:"Group Name"
-      .col
-        = f.submit
+      = f.label :name
+      = f.text_field :name, placeholder:"Group Name", class: "form-control"
+      br
+      .d-flex.justify-content-center
+        = f.submit class: "btn btn-outline-info btn-sm"
