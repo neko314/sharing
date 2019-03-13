@@ -9,7 +9,8 @@
         .form-group
           .form-check
             - Day.all.each do |day|
-              = check_box_tag "task[assignments_attributes][][day_id]", day.id, false, class: "form-check-input"
+              = check_box_tag "task[assignments_attributes][][day_id]", day.id, false,
+                class: "form-check-input"
               .form-check-label
                 = day.name
 
