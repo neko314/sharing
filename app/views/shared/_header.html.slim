@@ -6,6 +6,7 @@
         li.list-inline-item = link_to "Log out", destroy_user_session_path, method: :delete, class: "text-white"
     - else
       .d-flex.flex-row.bd-highlight.justify-content-end
-        li.list-inline-item = link_to "Log in", new_user_session_path, class: "text-white"
-        li.list-inline-item or
-        li.list-inline-item = link_to "Sign up", new_user_registration_path, class: "text-white"
+        - if controller_name != "sessions"
+          li.list-inline-item = link_to "Log in", new_user_session_path, class: "text-white"
+        - else
+          li.list-inline-item = link_to "Sign up", new_user_registration_path, class: "text-white"
