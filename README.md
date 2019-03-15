@@ -30,9 +30,10 @@ $ bin/rails server
 
 ## Check codes
 
-````
+```
 $ bundle exec rubocop
 ```
+
 
 ```
 $ slim-lint
