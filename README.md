@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/neko314/sharing.svg?style=svg)](https://circleci.com/gh/neko314/sharing)
+
 ## What's Sharing
 
 Application to visualize how many housekeeping jobs you and your family have.
