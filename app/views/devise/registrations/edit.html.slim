@@ -49,10 +49,11 @@
           .actions
             = f.submit "Update", class: "btn btn-outline-info btn-sm"
 
-        h3
-          | Cancel my account
-        p
-          | Unhappy?
-          = button_to "Cancel my account", registration_path(resource_name),
-            data: { confirm: "Are you sure?" }, method: :delete,
-              class: "btn btn-outline-danger btn-sm"
+    .fieldset
+      h3
+        | Cancel my account
+      p
+        | Unhappy?
+        = button_to "Cancel my account", registration_path(resource_name),
+          data: { confirm: "Are you sure?" }, method: :delete,
+            class: "btn btn-outline-danger btn-sm"
