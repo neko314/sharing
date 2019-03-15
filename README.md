@@ -4,7 +4,7 @@ Application to visualize how many housekeeping jobs you and your family have.
 
 You all will feel less burden with this app.
 
-[![Image from Gyazo](https://i.gyazo.com/824deb169a37756335085df2b822c845.png)](https://gyazo.com/824deb169a37756335085df2b822c845)
+[![Image from Gyazo](https://i.gyazo.com/e5f6e52cdbbc508bc0e2b6ec1579e755.png)](https://gyazo.com/e5f6e52cdbbc508bc0e2b6ec1579e755)
 
 ## Version
 
