@@ -23,19 +23,19 @@
         table.table.table-bordered.table-hover
           th
           - Day.all.each do |day|
-            th = day.name
+            th.text-center = day.name
 
           - @tasks.each do |task|
             tr
-              th = link_to "#{task.name}", edit_group_task_path(@group, task)
+              th = link_to "#{task.name}", edit_group_task_path(@group, task), class: "text-center d-block"
               - Day.all.each do |day|
                 - if task.assignments.find_by(day_id: day.id)
                   - assignment = task.assignments.find_by(day_id: day.id)
                   - if assignment.user
                     td = link_to "#{assignment.user.name}",
-                      edit_group_assignment_path(@group, assignment)
+                      edit_group_assignment_path(@group, assignment), class: "text-center d-block"
                   - else
                     td = link_to "No one",
-                      edit_group_assignment_path(@group, assignment)
+                      edit_group_assignment_path(@group, assignment), class: "text-center d-block"
                 - else
                   td

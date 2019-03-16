@@ -33,7 +33,7 @@ linters:
       - 'app/views/layouts/application.html.slim'
       - 'app/views/devise/shared/_links.html.slim'
     enabled: true
-    max: 100
+    max: 160
 
   RedundantDiv:
     enabled: true
