@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
   before_action :authenticate_user!
   before_action :correct_user, except: [:new, :create]
   before_action :set_group, except: [:new, :create]
-  
+
   def new
     @group = Group.new
   end
