@@ -32,7 +32,7 @@
                 - if task.assignments.find_by(day_id: day.id)
                   - assignment = task.assignments.find_by(day_id: day.id)
                   - if assignment.user
-                    td = link_to "#{assignment.user.name}", 
+                    td = link_to "#{assignment.user.name}",
                       edit_group_assignment_path(@group, assignment), class: "text-center d-block"
                   - else
                     td = link_to "No one",
