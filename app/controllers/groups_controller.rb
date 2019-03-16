@@ -43,16 +43,16 @@ class GroupsController < ApplicationController
   end
 
   private
-    def group_params
-      params.require(:group).permit(:name)
+    def correct_user
+      group = Group.find(params[:id])
+      redirect_to root_path, alert: "You can't access" unless group.user_ids.include?(current_user.id)
     end
 
     def set_group
       @group = Group.find(params[:id])
     end
 
-    def correct_user
-      group = Group.find(params[:id])
-      redirect_to root_path, alert: "You can't access" unless group.user_ids.include?(current_user.id)
+    def group_params
+      params.require(:group).permit(:name)
     end
 end

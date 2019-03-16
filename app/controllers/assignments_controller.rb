@@ -18,17 +18,17 @@ class AssignmentsController < ApplicationController
   end
 
   private
-    def assignment_params
-      params.require(:assignment).permit(:task_id, :user_id)
+    def correct_user
+      assignment = Assignment.find(params[:id])
+      group = assignment.task.group
+      redirect_to root_path, alert: "You can't access" unless group.user_ids.include?(current_user.id)
     end
 
     def set_assignment
       @assignment = Assignment.find(params[:id])
     end
 
-    def correct_user
-      assignment = Assignment.find(params[:id])
-      group = assignment.task.group
-      redirect_to root_path, alert: "You can't access" unless group.user_ids.include?(current_user.id)
+    def assignment_params
+      params.require(:assignment).permit(:task_id, :user_id)
     end
 end
