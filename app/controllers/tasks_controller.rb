@@ -27,15 +27,15 @@ class TasksController < ApplicationController
     if @task.update(task_params)
       redirect_to group_path(@group), notice: "Update task successfully"
     else
-      render "edit", alert: "Updating task failed"
+      render "edit", alert: "Failed to update task"
     end
   end
 
   def destroy
     if @task.destroy
-      redirect_to group_path(@task.group), notice: "Destroy task"
+      redirect_to group_path(@task.group), notice: "Destroyed task"
     else
-      redirect_to group_path(@task.group), alert: "Fail to destroy task"
+      redirect_to group_path(@task.group), alert: "Failed to destroy task"
     end
   end
 
