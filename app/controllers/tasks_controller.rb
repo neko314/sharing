@@ -3,6 +3,7 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
   before_action :correct_user
+  before_action :set_task, only: [:edit, :update, :destroy]
 
   def new
     @group = Group.find(params[:group_id])
@@ -22,12 +23,10 @@ class TasksController < ApplicationController
 
   def edit
     @group = Group.find(params[:group_id])
-    @task = Task.find(params[:id])
   end
 
   def update
     @group = Group.find(params[:group_id])
-    @task = Task.find(params[:id])
     if @task.update(task_params)
       redirect_to group_path(@group), notice: "Update task successfully"
     else
@@ -36,7 +35,6 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = Task.find(params[:id])
     if @task.destroy
       redirect_to group_path(@task.group), notice: "Destroy task"
     else
@@ -45,12 +43,16 @@ class TasksController < ApplicationController
   end
 
   private
-    def task_params
-      params.require(:task).permit(:name, assignments_attributes: [:id, :user_id, :day_id, :_destroy])
-    end
-
     def correct_user
       group = Group.find(params[:group_id])
       redirect_to root_path, alert: "You can't access" unless group.user_ids.include?(current_user.id)
+    end
+
+    def set_task
+      @task = Task.find(params[:id])
+    end
+
+    def task_params
+      params.require(:task).permit(:name, assignments_attributes: [:id, :user_id, :day_id, :_destroy])
     end
 end
