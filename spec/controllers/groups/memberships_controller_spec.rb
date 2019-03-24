@@ -12,13 +12,13 @@ RSpec.describe Groups::MembershipsController, type: :controller do
 
   describe "#create" do
     context "user is find with given email"
-    it "add the user to group" do
-      sign_in @user
-      @group.users = [@user]
-      expect { patch :create, params: { group_id: @group.id, user: { "email" => "other@example.com" } } }.to change(@group.users, :count).by(1)
-    end
+      it "adds the user to group" do
+        sign_in @user
+        @group.users = [@user]
+        expect { patch :create, params: { group_id: @group.id, user: { "email" => "other@example.com" } } }.to change(@group.users, :count).by(1)
+      end
     context "user is not found" do
-      it "add no user to group" do
+      it "adds no user to group" do
         sign_in @user
         expect { patch :create, params: { group_id: @group.id, user: { "email" => "incorectadress" } } }.to_not change(@group.users, :count)
       end
