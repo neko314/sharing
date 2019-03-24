@@ -6,8 +6,7 @@ Rails.application.routes.draw do
     sessions: "users/sessions"
   }
   resources :groups do
-    resources :tasks
-    resources :assignments
+    resources :tasks, except: [:index, :show]
     resources :memberships, only: [:create, :destroy], module: "groups"
   end
 end
