@@ -8,8 +8,6 @@ RSpec.describe GroupsController, type: :controller do
   before do
     @user = users(:user1)
     @other_user = users(:user2)
-    @group = groups(:group1)
-    @group.users = [@user]
   end
 
   describe "#new" do
@@ -53,6 +51,10 @@ RSpec.describe GroupsController, type: :controller do
   end
 
   describe "#edit" do
+    before do
+      @group = groups(:group1)
+      @group.users = [@user]
+    end
     context "as a correct user" do
       it "responds successfully" do
         sign_in @user
@@ -77,6 +79,10 @@ RSpec.describe GroupsController, type: :controller do
   end
 
   describe "#update" do
+    before do
+      @group = groups(:group1)
+      @group.users = [@user]
+    end
     context "as a correct user" do
       it "updates group" do
         sign_in @user
@@ -105,6 +111,10 @@ RSpec.describe GroupsController, type: :controller do
   end
 
   describe "#destroy" do
+    before do
+      @group = groups(:group1)
+      @group.users = [@user]
+    end
     context "as a correct user" do
       it "deletes a group" do
         sign_in @user
