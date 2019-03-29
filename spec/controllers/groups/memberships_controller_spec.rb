@@ -15,7 +15,8 @@ RSpec.describe Groups::MembershipsController, type: :controller do
       it "adds the user to group" do
         sign_in @user
         @group.users = [@user]
-        expect { patch :create, params: { group_id: @group.id, user: { "email" => "other@example.com" } } }.to change(@group.users, :count).by(1)
+        other_user = users(:user2)
+        expect { patch :create, params: { group_id: @group.id, user: { "email" => other_user.email } } }.to change(@group.users, :count).by(1)
       end
     context "user is not found" do
       it "adds no user to group" do
