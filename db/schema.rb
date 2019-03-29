@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 2019_03_24_110314) do
   create_table "groups_users", id: false, force: :cascade do |t|
     t.integer "group_id", null: false
     t.integer "user_id", null: false
-    t.index ["group_id"], name: "index_groups_users_on_group_id", unique: true
+    t.index ["group_id"], name: "index_groups_users_on_group_id"
     t.index ["user_id"], name: "index_groups_users_on_user_id", unique: true
   end
 
