@@ -11,7 +11,7 @@
 
         .form-group
           .form-check
-            - Day.all.each_with_index do |day, index|
+            - Day.order(:id).each_with_index do |day, index|
               - if assignment = @task.assignments.find {|x| x.day_id ==day.id}
                 = hidden_field_tag "task[assignments_attributes][#{index}][id]", assignment.id
                 = hidden_field_tag "task[assignments_attributes][#{index}][_destroy]", 1
