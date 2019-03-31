@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   }
   resources :groups do
     resources :tasks
-    resources :assignments
+    resources :assignments, only: [:edit, :update]
     resources :memberships, only: [:create, :destroy], module: "groups"
   end
 end
