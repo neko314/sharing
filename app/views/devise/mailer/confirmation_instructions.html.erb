@@ -1,5 +1,9 @@
-<p>Welcome <%= @email %>!</p>
+<% if @resource.unconfirmed_email %>
+  <p>You can confirm your email to change throu the link below</p>
+<% else %>
+  <p>Welcome <%= @email %>!</p>
 
-<p>You can confirm your account email through the link below:</p>
+  <p>You can confirm your account email through the link below:</p>
+<% end %>
 
 <p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
