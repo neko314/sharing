@@ -1,0 +1,22 @@
+.fieldset
+  = form_with(model: [:group, @task], url: group_task_path(@group)) do |f|
+    .form-group
+      = f.text_field :name, placeholder: "Task name", class: "form-control"
+
+    .form-group
+      .form-check
+        - Day.order(:id).each_with_index do |day, index|
+          - if assignment = @task.assignments.find {|x| x.day_id ==day.id}
+            = hidden_field_tag "task[assignments_attributes][#{index}][id]", assignment.id
+            = hidden_field_tag "task[assignments_attributes][#{index}][_destroy]", 1
+            = check_box_tag "task[assignments_attributes][#{index}][_destroy]", 0, true,
+              class: "form-check-input"
+          - else
+            = check_box_tag "task[assignments_attributes][#{index}][day_id]", day.id,
+              false, class: "form-check-input"
+          .form-check-label = day.name
+
+    .form-group.justify-content-center
+      = f.submit class: "btn btn-outline-info btn-sm"
+
+    .form-group.justify-content-center
