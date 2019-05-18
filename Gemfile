@@ -39,7 +39,6 @@ gem "jbuilder", "~> 2.5"
 gem "bootsnap", ">= 1.1.0", require: false
 gem "slim-rails"
 gem "pry-rails"
-gem "rubocop-performance"
 gem "devise"
 gem "slim_lint"
 gem "bootstrap", "~> 4.3.1"
@@ -60,6 +59,7 @@ group :development do
   gem "spring"
   gem "spring-watcher-listen", "~> 2.0.0"
   gem "letter_opener"
+  gem "rubocop-performance"
 end
 
 group :test do
