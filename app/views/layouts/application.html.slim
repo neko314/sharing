@@ -16,8 +16,20 @@ html
     script crossorigin="anonymous" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     script crossorigin="anonymous" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP|Roboto+Mono:300,400,500,700" rel="stylesheet" /
+    /! Google Tag Manager
+    javascript:
+      | (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      | new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      | j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      | 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      | })(window,document,'script','dataLayer','GTM-PHXJHLT');
+    /! End Google Tag Manager
 
   body
+    /! Google Tag Manager (noscript)
+    noscript
+      iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-PHXJHLT" style="display:none;visibility:hidden" width="0" 
+    /! End Google Tag Manager (noscript)
     = render "/shared/header"
     .container-fluid
       p.notice.text-success
